@@ -51,7 +51,7 @@ ___
 
 What if Javascript didn't provide us with a list-like structure? No arrays, no objects. Is it possible to build our own?
 
-First, let's build some criteria for this list structure. 
+First, let's build some criteria for this list structure.
 
 Wish List (pun intended):
 1) We need some concept of an empty list.
@@ -73,7 +73,7 @@ prepend 1 (2 3 4 5) // (1 2 3 4 5)
 ```
 
 
-We'll start with the basics: the empty list. How will we define the empty list? 
+We'll start with the basics: the empty list. How will we define the empty list?
 `null` seems appropriate for now. So, we're able to implement one of our functions.
 
 ```javascript
@@ -130,9 +130,9 @@ Be sure you understand what the prepend function is doing before you continue...
 
 Remember that when we return a function from another function the returned function also gets access to the outer environment where it was defined. So, in the case of `prepend` the function returned has access to both the `head` and `tail`.
 
-With this in mind, how should head and tail be implemented? Remember that the head and tail functions are just given a list as an argument. 
+With this in mind, how should head and tail be implemented? Remember that the head and tail functions are just given a list as an argument.
 
-For now we won't worry about error cases (calling head and tail on the empty list). So, assuming our head and tail functions receive an unempty list let's return the head and tail respectively. 
+For now we won't worry about error cases (calling head and tail on the empty list). So, assuming our head and tail functions receive an unempty list let's return the head and tail respectively.
 
 ```javascript
 const empty = null
@@ -179,10 +179,10 @@ If you'd like to do some playing around with lists but don't want to keep typing
 const createList = (...args) => args.reverse().reduce((acc, el) => prepend(el, acc), empty)
 
 // Usage:
-const disappointing_movies = createList("Shrek 3", 
-                                        "Mighty Ducks 2", 
-                                        "The Last Airbender", 
-                                        "Eragon", 
+const disappointing_movies = createList("Shrek 3",
+                                        "Mighty Ducks 2",
+                                        "The Last Airbender",
+                                        "Eragon",
                                         "Man of Steel")
 ```
 
@@ -224,14 +224,14 @@ function map(f, list) {
   }
   const h = head(list)
   const t = tail(list)
-  return prepend(f(h), map(f, t)); 
+  return prepend(f(h), map(f, t));
 }
 
 function filter(f, list) {
   if(isEmpty(list)) {
     return list;
   }
-  
+
   const h = head(list)
   const t = tail(list)
   if(f(h)) {
@@ -293,40 +293,40 @@ head(tear_worthy_movies)
 /*
 Step by step:
 1.) const myList = prepend(1, empty)
-  
+
 2.) const myList = function(op) {
       return op(1, empty)
     }
-    
+
 3.) head(myList)
 
 4.) head(myList)
-  
+
 5.) (function(list){
       return list(function(head, tail) {
         return head;
       })
     })(myList)
 
-6.) myList(function(head, tail) { 
-       return head 
+6.) myList(function(head, tail) {
+       return head
     })
-    
+
 7.) (function(op) {
       return op(1, empty)
-    })(function(head, tail) { 
-       return head 
+    })(function(head, tail) {
+       return head
     })
-    
+
  8.) (function(head, tail) { return head })(1, empty)
- 
+
  9.) 1
 */
 ```
 
 That was a lot of logic to trace through, but after some more examples it will start to click.
 
-We are now down to using 
+We are now down to using
 - functions
 - booleans/equality expressions
 - if/else statements
@@ -454,7 +454,7 @@ function tail(list) {
 }
 ```
 
-This begs the question though: Why did we write `ifelse`? 
+This begs the question though: Why did we write `ifelse`?
 
 Well, we need it for `isEmpty` to be usable inside our other list functions.
 Our old implementations of things like `length`, `map`, and `filter` relied on our old implementation of `isEmpty`, but that doesn't work anymore because javascript's native if/else statements won't work with our `truthy` and `falsey` values that are returned by our new `isEmtpy` implementation.
@@ -465,8 +465,8 @@ Let's implement length again using our newly formed lists.
 
 ```javascript
 function length(list) {
-  return ifelse(isEmpty(list), 
-              0, 
+  return ifelse(isEmpty(list),
+              0,
               1 + length(tail(list)))
 }
 ```
@@ -490,11 +490,11 @@ function length(list) {
   const zero = function() {
     return 0
   }
-  
+
   const tail_length = function() {
     return 1 + length(tail(list))
   }
-  
+
   return ifelse(isEmpty(list), zero, tail_length)
 }
 ```
@@ -569,14 +569,5 @@ function tail(list) {
 }
 ```
 
-We've finally arrived at our end goal! This is a list data structure using nothing but javascript functions. 
-That's pretty cool.
-
-Final Note:
-
-Hopefully this exercise showed you a new way to think about things and gave you some appreciation for the power of functions and abstraction. [make this a little more impactful]
-
-
-Too easy for you? Want to implement more language functionality? Go check out [writing an imperative language in javascript](https://mysite.com)
-
-
+We've finally arrived at our end goal! This is a list data structure using nothing but javascript functions.
+Mess around with this more and see what other language functionality you can create by using functions (let expressions, loops, numbers). Hopefully this exercise forced you to think a little differently. Trying to build something with limited language functionality often leads to very creative solutions that you wouldn't be exposed to in your day-to-day programming.
