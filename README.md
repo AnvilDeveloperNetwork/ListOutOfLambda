@@ -26,6 +26,7 @@ function f(x) {
 const g = f(4)
 
 g()  // <--- What's the output?
+     // Answer: 4
 ```
 
 How does this work? By returning a function from within a function you not only get the returned function when called, but the returned function also gets access to its outer environment at the time it was created.
