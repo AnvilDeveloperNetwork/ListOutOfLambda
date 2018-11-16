@@ -187,7 +187,7 @@ const disappointing_movies = createList("Shrek 3",
                                         "Man of Steel")
 ```
 
-To get more familar with this let's write some list operations using our awesome new list strctures!
+To get more familar with how this list structure works, let's rewrite some common list operations.
 
 ```javascript
 function length() {
@@ -195,13 +195,13 @@ function length() {
 }
 // length((1 2 3)) // 3
 
-function map(list) {
+function map(f, list) {
   //TODO
 }
 
 // map(function(n){ return n * 2 }, (1 2 3))  // (2 4 6)
 
-function filter(list) {
+function filter(f, list) {
   //TODO
 }
 // filter(function(n){ return n > 10 }, (1 12 32 6))  // (12 32)
